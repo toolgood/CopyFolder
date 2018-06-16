@@ -24,6 +24,7 @@ namespace CopyFolder.Windows
 
         public void SetCopyInfo(FolderInfo folderInfo, List<CopyFileInfo> copyFileInfos)
         {
+            this.button1.Enabled = false;
             _folderInfo = folderInfo;
             _sourceFileInfos = copyFileInfos.OrderByDescending(q => q.IsFile).ThenByDescending(q => q.FilePath).ToList();
         }
@@ -82,6 +83,8 @@ namespace CopyFolder.Windows
                     label2.Text = $"成功 {Success} ，失败 {++Error} 。双击复制文字。";
                 }
             }
+            this.button1.Enabled = true;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -91,7 +94,9 @@ namespace CopyFolder.Windows
 
         private void WriteText(string msg)
         {
+            Application.DoEvents();
             listBox1.Items.Add("[" + DateTime.Now.ToString("HH:mm:ss") + "] " + msg);
+            Application.DoEvents();
         }
         private void WriteLog(string msg)
         {
